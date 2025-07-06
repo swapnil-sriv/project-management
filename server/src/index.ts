@@ -9,6 +9,7 @@ import taskRoutes from "./routes/taskRoutes";
 import searchRoutes from "./routes/searchRoutes";
 import userRoutes from "./routes/userRoutes";
 import teamRoutes from "./routes/teamRoutes"
+import priorityRoutes from "./routes/priorityRoutes"
 // CNFIGURATION
 dotenv.config();
 const app = express();
@@ -30,6 +31,7 @@ app.use("/tasks",taskRoutes);
 app.use("/search",searchRoutes);
 app.use("/users",userRoutes);
 app.use("/teams",teamRoutes);
+app.use("/priority",priorityRoutes);
 
 const port = process.env.PORT||3000;
 app.listen(port,()=>{
