@@ -22,7 +22,7 @@
     "gantt-task-react": "^0.3.9",
     "lodash": "^4.17.21",
     "lucide-react": "^0.515.0",
-    "next": "15.3.3",
+    "next": "13.4.19",
     "numeral": "^2.0.6",
     "postcss": "^8.5.6",
     "react": "^19.0.0",
