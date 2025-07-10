@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
 import {  useGetProjectsQuery } from "@/state/api";
 import type {User as user} from "@/state/api"
-import { useGetAuthUserQuery } from "api";
+import { useGetAuthUserQuery } from "@/state/api";
 import { signOut } from "aws-amplify/auth";
 import {
   AlertCircle,
@@ -39,9 +39,13 @@ const Sidebar = () => {
     (state) => state.global.isSidebarCollapsed,
   );
 
-const {data: currentUser} = useGetAuthUserQuery({}); 
+const {data: currentUser, isLoading, isError} = useGetAuthUserQuery({}); 
 
 if(!currentUser) return <div>Loading...</div>;
+if (isError) {
+  console.error("Failed to load user");
+  return <div>Unable to load user data</div>;
+}
 
 const handleSignOut = async ()=>{
   try{
