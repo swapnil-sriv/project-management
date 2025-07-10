@@ -3,10 +3,10 @@ import { Menu, Moon, Search, Settings, Sun, User } from "lucide-react";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
-//import { useGetAuthUserQuery } from "@/state/api";
 import type {User as user} from "@/state/api"
 import { signOut } from "aws-amplify/auth";
 import Image from "next/image";
+import { useGetAuthUserQuery } from "api";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -15,27 +15,21 @@ const Navbar = () => {
   );
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
-  //To be changed -
+const {data: currentUser} = useGetAuthUserQuery({}); 
 
-const currentUserDetails: user = {
-  userId: 1,
-  username: "john_doe",
-  email: 'john.doe@example.com',
-  profilePictureUrl: 'p1.jpeg',
-  cognitoId: 'abc123',
-  teamId: 'team-1',
-  userDetails: "User details",
-};
+if(!currentUser) return <div>Loading...</div>;
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
+const handleSignOut = async ()=>{
+  try{
+    await signOut();
+  } catch(error){
+    console.log("Error signing out! ", error);
+  }
+}
 
-  //if (!currentUser) return null;
+const currentUserDetails = currentUser?.userDetails;
+
+
 
 
   return (

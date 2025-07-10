@@ -12,6 +12,7 @@ import {
 } from "@/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
+import { useGetAuthUserQuery } from "api";
 
 type Props = {
   priority: Priority;
@@ -76,18 +77,9 @@ const ReusablePriorityPage = ({ priority }: Props) => {
   const [view, setView] = useState("list");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-  //To edit -
-  //const { data: currentUser } = useGetAuthUserQuery({});
-  const userDetails: User = {
-  userId: 4,
-  username: 'john_doe',
-  email: 'john.doe@example.com',
-  profilePictureUrl: 'https://pm-s3--img-bucket.s3.us-east-1.amazonaws.com/p1.jpg',
-  cognitoId: 'abc123-cognito-id',
-  teamId: '2',
-};
+  const {data: currentUser} = useGetAuthUserQuery({});
+  const userId = currentUser?.userDetails?.userId??null;
 
-  const userId = userDetails?.userId ?? null;
   const {
     data: tasks,
     isLoading,

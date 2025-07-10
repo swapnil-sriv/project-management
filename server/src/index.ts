@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import dotenv from "dotenv"
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -10,6 +10,7 @@ import searchRoutes from "./routes/searchRoutes";
 import userRoutes from "./routes/userRoutes";
 import teamRoutes from "./routes/teamRoutes"
 import priorityRoutes from "./routes/priorityRoutes"
+
 // CNFIGURATION
 dotenv.config();
 const app = express();
@@ -32,6 +33,7 @@ app.use("/search",searchRoutes);
 app.use("/users",userRoutes);
 app.use("/teams",teamRoutes);
 app.use("/priority",priorityRoutes);
+
 
 const port = process.env.PORT||3000;
 app.listen(port,()=>{

@@ -1,6 +1,7 @@
 "use client"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
+import { fetchAuthSession, fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
+import _ from "lodash";
 
 export interface Project {
   id: number;
@@ -92,21 +93,24 @@ export const api = createApi({
   endpoints: (build) => ({
     getAuthUser: build.query({
       queryFn: async (_, _queryApi, _extraoptions, fetchWithBQ) => {
-        try {
+        try{
           const user = await getCurrentUser();
           const session = await fetchAuthSession();
-          if (!session) throw new Error("No session found");
-          const { userSub } = session;
-         // const { accessToken } = session.tokens ?? {};
+          if(!session){
+            throw new Error("No session found");
+          }
+          const {userSub} = session
+          const {accessToken} = session.tokens??{};
 
           const userDetailsResponse = await fetchWithBQ(`users/${userSub}`);
           const userDetails = userDetailsResponse.data as User;
 
-          return { data: { user, userSub, userDetails } };
-        } catch (error: any) {
-          return { error: error.message || "Could not fetch user data" };
+          return {data: {user, userDetails, userSub}};
+
+        } catch(error: any){
+          return {error: error.message || "Could not fetch user details"};
         }
-      },
+      }
     }),
     getProjects: build.query<Project[], void>({
       query: () => "projects",
@@ -177,4 +181,5 @@ export const {
   useGetTeamsQuery,
   useGetTasksByUserQuery,
   useGetAuthUserQuery,
+  useLazyGetAuthUserQuery,
 } = api;

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
 import {  useGetProjectsQuery } from "@/state/api";
 import type {User as user} from "@/state/api"
+import { useGetAuthUserQuery } from "api";
 import { signOut } from "aws-amplify/auth";
 import {
   AlertCircle,
@@ -38,28 +39,19 @@ const Sidebar = () => {
     (state) => state.global.isSidebarCollapsed,
   );
 
-  //const { data: currentUser } = useGetAuthUserQuery({});
+const {data: currentUser} = useGetAuthUserQuery({}); 
 
-const currentUserDetails: user = {
-  userId: 1,
-  username: "john_doe",
-  email: 'john.doe@example.com',
-  profilePictureUrl: 'p1.jpeg',
-  cognitoId: 'abc123',
-  teamId: 'team-1',
-  userDetails: "User details",
-};
+if(!currentUser) return <div>Loading...</div>;
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
+const handleSignOut = async ()=>{
+  try{
+    await signOut();
+  } catch(error){
+    console.log("Error signing out! ", error);
+  }
+}
 
-  //if (!currentUser) return null;
-  //const currentUserDetails = currentUser?.userDetails;
+const currentUserDetails = currentUser?.userDetails;
 
   const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl
     transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white
