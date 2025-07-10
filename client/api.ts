@@ -35,10 +35,6 @@ export interface User {
   teamId?: number;
 }
 
-export interface usersList {
-    users?: User[];
-}
-
 export interface Attachment {
   id: number;
   fileURL: string;
