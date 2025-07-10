@@ -12,7 +12,7 @@ import {
 } from "@/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
-import { useGetAuthUserQuery } from "api";
+import { useGetAuthUserQuery } from "@/state/api";
 
 type Props = {
   priority: Priority;
