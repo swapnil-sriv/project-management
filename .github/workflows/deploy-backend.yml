@@ -48,4 +48,4 @@ jobs:
             docker pull ${{ steps.login-ecr.outputs.registry }}/my-backend:${{ github.sha }}
             docker stop backend || true
             docker rm backend || true
-            docker run -d --name backend -p 3000:3000 --env-file /var/www/backend/.env ${{ steps.login-ecr.outputs.registry }}/my-backend:${{ github.sha }}
+            docker run -d --name backend -p 80:3000 --env-file /var/www/backend/.env ${{ steps.login-ecr.outputs.registry }}/my-backend:${{ github.sha }}
