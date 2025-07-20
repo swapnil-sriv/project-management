@@ -16,6 +16,23 @@ A powerful web application to **manage multiple projects and tasks** seamlessly.
 
 ---
 
+## 🖼️ Project Preview
+
+Here’s a visual overview of the app’s interface and functionality:
+
+<table>
+  <tr>
+    <td><img src="client/public/example2.png" alt="Preview 1" width="400"/></td>
+    <td><img src="client/public/example1.png" alt="Preview 2" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center">🔧 Dashboard</td>
+    <td align="center">📱 Overview</td>
+  </tr>
+</table>
+
+---
+
 ## 🛠️ Tech Stack
 
 | Layer      | Technology                          |
